@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrganizationRequest;
 use App\Models\Organizations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,9 @@ class OrganizationsController extends Controller
         return view('organizations.register');
     }
 
-    public function saveData(Request $request){
+    public function saveData(StoreOrganizationRequest $request){
+
+        $validated = $request->validated();
 
         $save = new Organizations();
 
@@ -70,7 +73,10 @@ class OrganizationsController extends Controller
         return view('organizations.edit',compact('orgData'));
     }
 
-    public function editData(Request $request){
+    public function editData(StoreOrganizationRequest $request){
+
+        $validate = $request->validated();
+
         $organization = Organizations::find($request->id);
 
         $organization->name = $request->org_name;
